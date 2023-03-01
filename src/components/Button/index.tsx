@@ -1,15 +1,17 @@
 import { TouchableOpacityProps } from "react-native";
-import { ButtonIconStyleProps, Container, Icon } from "./styles";
+import { ButtonIconStyleProps, Container, Text } from "./styles";
 
 type Props = TouchableOpacityProps & {
-  icon: string;
+  icon?: React.ReactNode;
+  text: string;
   type?: ButtonIconStyleProps;
 };
 
-const Button = ({ icon, type = "primary", ...rest }: Props) => {
+const Button = ({ icon, text, type = "primary", ...rest }: Props) => {
   return (
-    <Container {...rest}>
-      <Icon name={icon} type={type} />
+    <Container {...rest} type={type} activeOpacity={0.8}>
+      {icon}
+      <Text type={type}>{text}</Text>
     </Container>
   );
 };

@@ -14,7 +14,7 @@ type Props = TouchableOpacityProps & {
 
 const Resume = ({ percent, type = "primary", ...rest }: Props) => {
   return (
-    <Container type={type} {...rest}>
+    <Container type={type} {...rest} activeOpacity={0.7}>
       <SeeMoreArrow type={type} />
       <PercentNumber>{percent}</PercentNumber>
       <PercentText>refeiçoes dentro da dieta</PercentText>
