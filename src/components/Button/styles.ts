@@ -9,7 +9,7 @@ type Props = {
 
 export const Container = styled(TouchableOpacity) <Props>`
   width: 100%;
-  background: ${({ theme, type }) => type === "primary" ? theme.COLORS.BASE_200 : theme.COLORS.BASE_600};
+  background: ${({ theme, type }) => type === "primary" ? theme.colors.base200 : theme.colors.base600};
 
   flex-direction: row;
   gap: 12px;
@@ -20,6 +20,6 @@ export const Container = styled(TouchableOpacity) <Props>`
 `
 
 export const Text = styled.Text<Props>`
-  color: ${({ theme, type }) => type === "primary" ? theme.COLORS.BASE_700 : theme.COLORS.BASE_100};
-  font-family: ${({ theme }) => theme.FONTS.BOLD};
+  color: ${({ theme, type }) => type === "primary" ? theme.colors.base700 : theme.colors.base100};
+  font-family: ${({ theme }) => theme.fonts.bold};
 `

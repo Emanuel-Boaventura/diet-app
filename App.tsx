@@ -1,30 +1,28 @@
-import Home from "./src/pages/Home";
-
 import {
   Nunito_400Regular,
   Nunito_700Bold,
   useFonts,
 } from "@expo-google-fonts/nunito";
-import { ThemeProvider, useTheme } from "styled-components/native";
-import light from "./src/theme/light";
 import { StatusBar } from "expo-status-bar";
-import dark from "./src/theme/dark";
-import { View } from "react-native";
+import { useState } from "react";
+import { ThemeProvider } from "styled-components/native";
 import Routes from "./src/routes";
+import { dark, ITheme, light } from "./src/theme/theme";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
     Nunito_700Bold,
   });
+  const [theme, setTheme] = useState<ITheme>(light);
 
   if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <ThemeProvider theme={dark}>
-      <StatusBar style="auto" />
+    <ThemeProvider theme={theme}>
+      <StatusBar style={theme.statusBar} />
       <Routes />
     </ThemeProvider>
   );

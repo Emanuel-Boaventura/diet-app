@@ -2,13 +2,9 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import logo from "../../../assets/logo.png";
 import Button from "../../components/Button";
 import Resume from "../../components/Resume";
-import {
-  Container,
-  HeaderContainer,
-  Logo,
-  MealsText,
-  PlusIcon,
-} from "./styles";
+import { Container } from "../../components/GlobalComponents/styles";
+import { HeaderContainer, Logo, MealsText, PlusIcon } from "./styles";
+import { useTheme } from "styled-components/native";
 
 const Home = () => {
   const nav = useNavigation<any>(); // ver com o mariano oq coloca
@@ -17,8 +13,10 @@ const Home = () => {
     nav.navigate("summary");
   }
 
+  const { colors } = useTheme();
+
   return (
-    <Container>
+    <Container style={{ backgroundColor: colors.base600 }}>
       <HeaderContainer>
         <Logo source={logo} />
 
