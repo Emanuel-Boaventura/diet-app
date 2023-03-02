@@ -1,4 +1,5 @@
 import type { StatusBarStyle } from "expo-status-bar";
+import 'styled-components';
 
 export interface ITheme {
   colors: {
@@ -101,3 +102,7 @@ export const light = {
   },
   statusBar: "dark"
 } satisfies ITheme;
+
+declare module 'styled-components' {
+  export interface DefaultTheme extends ITheme { }
+}

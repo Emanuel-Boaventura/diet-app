@@ -1,7 +1,8 @@
-import { ContainerWithHeader } from "../../components/GlobalComponents/styles";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigation } from "../../types/routes";
 
-const NewMeal = () => {
-  return <ContainerWithHeader></ContainerWithHeader>;
-};
+export function NewMeal() {
+  const { navigate } = useNavigation<StackNavigation<"newMeal">>();
 
-export default NewMeal;
+  return <></>;
+}
