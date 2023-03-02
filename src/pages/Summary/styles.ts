@@ -1,9 +1,17 @@
+import { ArrowLeft } from "phosphor-react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import styled from "styled-components/native";
 
 export type BlockTypeStyleProps = 'gray' | 'green' | 'red';
+export type ButtonTypeStyleProps = 'primary' | 'secondary';
 
 type BlockProps = {
   type?: BlockTypeStyleProps;
+}
+
+
+type ButtonProps = {
+  type?: ButtonTypeStyleProps;
 }
 
 export const HeaderContainer = styled.View`
@@ -18,6 +26,18 @@ export const HeaderContainer = styled.View`
   position: relative;
 `
 
+export const ButtonContainer = styled(TouchableOpacity)`
+  position: absolute;
+  top: 24px;
+  left: 24px;
+`
+
+export const BackIcon = styled(ArrowLeft).attrs<ButtonProps>(({ theme, type }) => ({
+  size: 28,
+  color: type === 'primary' ? theme.colors.greenDark : theme.colors.redDark,
+})) <ButtonProps>``;
+
+
 export const PercentNumber = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.xl}px;
   font-family: ${({ theme }) => theme.fonts.bold};
@@ -29,7 +49,6 @@ export const PercentText = styled.Text`
 `
 
 export const SummaryContainer = styled.View`
-  width: 100%;
   flex: 1;
   gap: 12px;
 
@@ -49,14 +68,12 @@ export const SummaryTitle = styled.Text`
 
 
 export const Block = styled.View<BlockProps>`
-  /* ${({ type }) => type === 'gray' ? "width: 100%" : "flex: 1"} */
-  /* flex: ${({ type }) => type === 'gray' ? null : 1}; */
   width: 100%;
+  ${({ type }) => type === 'gray' ? '' : 'flex: 1;'}
+
   padding: 16px;
   border-radius: 8px;
-  gap: 4px;
-
-  align-items: center;
+  gap: 8px;
 
   background: ${({ theme }) => theme.colors.base300};
 `
@@ -64,14 +81,17 @@ export const Block = styled.View<BlockProps>`
 export const SeparedMeals = styled.View`
   width: 100%;
   flex-direction: row;
+  gap: 12px;
 `
 
 export const BlockNumber = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.lg}px;
   font-family: ${({ theme }) => theme.fonts.bold};
+  text-align: center;
 `
 
 export const BlockText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.xs}px;
   font-family: ${({ theme }) => theme.fonts.bold};
+  text-align: center;
 `

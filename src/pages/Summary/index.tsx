@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 import { ContainerWithHeader } from "../../components/GlobalComponents/styles";
 import {
+  BackIcon,
   Block,
   BlockNumber,
   BlockText,
+  ButtonContainer,
   HeaderContainer,
   PercentNumber,
   PercentText,
@@ -14,16 +17,22 @@ import {
 
 const Summary = () => {
   const { colors } = useTheme();
-  const type = "primary";
+  const { goBack } = useNavigation<any>();
+
+  const type = "secondary";
 
   return (
     <ContainerWithHeader
       style={{
         backgroundColor:
-          type === "primary" ? colors.GREEN_LIGHT : colors.RED_LIGHT,
+          type === "primary" ? colors.greenLight : colors.redLight,
       }}
     >
       <HeaderContainer>
+        <ButtonContainer onPress={() => goBack()} activeOpacity={0.8}>
+          <BackIcon type={type} />
+        </ButtonContainer>
+
         <PercentNumber>87,5%</PercentNumber>
 
         <PercentText>refeiçoes dentro da dieta</PercentText>
@@ -37,18 +46,18 @@ const Summary = () => {
           <BlockText>melhor sequência de pratos dentro da dieta</BlockText>
         </Block>
 
-        <Block style={{ backgroundColor: colors.base600 }}>
+        <Block type="gray" style={{ backgroundColor: colors.base600 }}>
           <BlockNumber>109</BlockNumber>
           <BlockText>refeições registradas</BlockText>
         </Block>
 
         <SeparedMeals>
-          <Block style={{ backgroundColor: colors.GREEN_MID }}>
+          <Block style={{ backgroundColor: colors.greenLight }}>
             <BlockNumber>32</BlockNumber>
             <BlockText>refeições dentro da dieta</BlockText>
           </Block>
 
-          <Block style={{ backgroundColor: colors.RED_MID }}>
+          <Block style={{ backgroundColor: colors.redLight }}>
             <BlockNumber>77</BlockNumber>
             <BlockText>refeições fora da dieta</BlockText>
           </Block>

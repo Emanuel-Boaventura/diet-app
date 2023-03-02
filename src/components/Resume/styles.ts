@@ -11,7 +11,7 @@ type Props = {
 
 export const Container = styled(TouchableOpacity) <Props>`
   width: 100%;
-  background: ${({ theme, type }) => type === 'primary' ? theme.colors.greenLight : theme.colors.greenLight};
+  background: ${({ theme, type }) => type === 'primary' ? theme.colors.greenLight : theme.colors.redLight};
   align-items: center;
   justify-content: center;
   border-radius: 8px;

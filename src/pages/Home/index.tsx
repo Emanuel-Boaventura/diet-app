@@ -7,12 +7,7 @@ import { HeaderContainer, Logo, MealsText, PlusIcon } from "./styles";
 import { useTheme } from "styled-components/native";
 
 const Home = () => {
-  const nav = useNavigation<any>(); // ver com o mariano oq coloca
-
-  function handleShowSummary() {
-    nav.navigate("summary");
-  }
-
+  const { navigate } = useNavigation<any>(); // ver com o mariano oq coloca
   const { colors } = useTheme();
 
   return (
@@ -23,7 +18,11 @@ const Home = () => {
         {/* <Avatar source={} /> */}
       </HeaderContainer>
 
-      <Resume percent="87,5%" type="secondary" onPress={handleShowSummary} />
+      <Resume
+        percent="87,5%"
+        type="secondary"
+        onPress={() => navigate("summary")}
+      />
 
       <MealsText>Refeições</MealsText>
 
