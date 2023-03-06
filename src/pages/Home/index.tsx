@@ -1,7 +1,9 @@
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "styled-components/native";
 import logo from "../../../assets/logo.png";
 import Button from "../../components/Button";
 import Resume from "../../components/Resume";
+import { StackNavigation } from "../../types/routes";
 import {
   Container,
   HeaderContainer,
@@ -9,8 +11,6 @@ import {
   MealsText,
   PlusIcon,
 } from "./styles";
-import { useTheme } from "styled-components/native";
-import { StackNavigation } from "../../types/routes";
 
 const Home = () => {
   const { navigate } = useNavigation<StackNavigation<"home">>();
