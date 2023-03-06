@@ -32,7 +32,11 @@ const Home = () => {
 
       <MealsText>Refeições</MealsText>
 
-      <Button text="Nova refeição" icon={<PlusIcon />} />
+      <Button
+        text="Nova refeição"
+        icon={<PlusIcon />}
+        onPress={() => navigate("setMeal", { edit: true })}
+      />
 
       {/* List of meals */}
     </Container>
