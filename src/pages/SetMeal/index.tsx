@@ -1,39 +1,80 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { useTheme } from "styled-components/native";
 import { StackNavigation, StackProp } from "../../types/routes";
 import {
+  BackButton,
   BackIcon,
+  CenterView,
   Container,
+  DietType,
+  DietTypeContainer,
   HeaderSafeContent,
-  PercentNumber,
-  PercentText,
+  HeaderText,
+  InputArea,
+  InputDate,
+  InputTime,
+  MealContent,
+  TextTitle,
+  TimeContainer,
 } from "./styles";
 
 type SetMealScreenRouteProp = StackProp<"setMeal">;
-type SetMealScreenNavigationProp = StackNavigation<"setMeal">;
 
 type SetMealScreenProps = {
   route: SetMealScreenRouteProp;
-  navigation: SetMealScreenNavigationProp;
 };
 
-export function SetMeal({ route, navigation }: SetMealScreenProps) {
+export function SetMeal({ route }: SetMealScreenProps) {
   const { navigate, goBack } = useNavigation<StackNavigation<"setMeal">>();
   const { edit } = route.params ?? {};
+  const { colors } = useTheme();
+  const [insideDiet, setInsideDiet] = useState<boolean | null>(null);
 
   return (
     <Container>
       <HeaderSafeContent>
-        <TouchableOpacity onPress={() => goBack()} activeOpacity={0.8}>
-          <BackIcon />
-        </TouchableOpacity>
+        <CenterView>
+          <BackButton onPress={() => goBack()} activeOpacity={0.8}>
+            <BackIcon />
+          </BackButton>
 
-        <PercentNumber>
-          {edit ? "Editar refeição" : "Nova refeição"}
-        </PercentNumber>
-
-        <PercentText>refeiçoes dentro da dieta</PercentText>
+          <HeaderText>{edit ? "Editar refeição" : "Nova refeição"}</HeaderText>
+        </CenterView>
       </HeaderSafeContent>
+
+      <MealContent>
+        <TextTitle>Name</TextTitle>
+        <InputArea />
+
+        <TextTitle>Descrição</TextTitle>
+        <InputArea />
+
+        <TimeContainer>
+          <TextTitle>Data</TextTitle>
+          <InputDate />
+
+          <TextTitle>Hora</TextTitle>
+          <InputTime />
+        </TimeContainer>
+
+        <TextTitle>Está dentro da Dieta?</TextTitle>
+        <DietTypeContainer>
+          <DietType
+            insideDiet={insideDiet}
+            onPress={() => setInsideDiet(!insideDiet)}
+          >
+            <TextTitle>Sim</TextTitle>
+          </DietType>
+
+          <DietType
+            insideDiet={insideDiet}
+            onPress={() => setInsideDiet(!insideDiet)}
+          >
+            <TextTitle>Não</TextTitle>
+          </DietType>
+        </DietTypeContainer>
+      </MealContent>
     </Container>
   );
 }
