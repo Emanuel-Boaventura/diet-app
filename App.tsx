@@ -22,11 +22,38 @@ export default function App() {
   useEffect(() => {
     (async () => {
       runQuery(
-        "CREATE TABLE IF NOT EXISTS meals (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date TEXT NOT NULL)",
+        `
+          CREATE TABLE IF NOT EXISTS dates (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT NOT NULL UNIQUE
+          )
+        `,
         []
       )
-        .then(() => console.log("Table created successfully"))
-        .catch((error) => console.error("Error creating table:", error));
+        .then(() => {
+          runQuery(
+            `
+          CREATE TABLE IF NOT EXISTS meals (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            createdAt TEXT NOT NULL,
+            time TEXT NOT NULL,
+            description TEXT,
+            type TEXT NOT NULL,
+            dateId INTEGER NOT NULL,
+            FOREIGN KEY (dateId) REFERENCES dates (id)
+          )
+          `,
+            []
+          )
+            .then(() =>
+              console.log("Meals and Dates table created successfully")
+            )
+            .catch((error) =>
+              console.error("Error creating meals table:", error)
+            );
+        })
+        .catch((error) => console.error("Error creating dates table:", error));
       setLoading(false);
     })();
   }, []);
