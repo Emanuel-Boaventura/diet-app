@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { useTheme } from "styled-components/native";
+import Button from "../../components/Button";
 import { StackNavigation, StackProp } from "../../types/routes";
+import { dateMask, timeMask } from "../../utils/masks";
 import {
   BackButton,
   BackIcon,
@@ -9,11 +11,14 @@ import {
   Container,
   DietType,
   DietTypeContainer,
+  Dot,
   HeaderSafeContent,
   HeaderText,
   InputArea,
   InputDate,
   InputTime,
+  Label,
+  LabelTime,
   MealContent,
   TextTitle,
   TimeContainer,
@@ -28,8 +33,11 @@ type SetMealScreenProps = {
 export function SetMeal({ route }: SetMealScreenProps) {
   const { navigate, goBack } = useNavigation<StackNavigation<"setMeal">>();
   const { edit } = route.params ?? {};
-  const { colors } = useTheme();
-  const [insideDiet, setInsideDiet] = useState<boolean | null>(null);
+  const [dietTypeSelected, setDietTypeSelected] = useState<
+    "inside" | "outside" | null
+  >(null);
+  const [date, setDate] = useState<string>();
+  const [time, setTime] = useState<string>();
 
   return (
     <Container>
@@ -44,36 +52,62 @@ export function SetMeal({ route }: SetMealScreenProps) {
       </HeaderSafeContent>
 
       <MealContent>
-        <TextTitle>Name</TextTitle>
-        <InputArea />
+        <Label>
+          <TextTitle>Nome</TextTitle>
+          <InputArea />
+        </Label>
 
-        <TextTitle>Descrição</TextTitle>
-        <InputArea />
+        <Label>
+          <TextTitle>Descrição</TextTitle>
+          <InputArea description textAlignVertical="top" multiline />
+        </Label>
 
         <TimeContainer>
-          <TextTitle>Data</TextTitle>
-          <InputDate />
+          <LabelTime>
+            <TextTitle>Data</TextTitle>
+            <InputDate
+              value={date}
+              inputMode="numeric"
+              onChangeText={(value) => setDate(dateMask(value))}
+            />
+          </LabelTime>
 
-          <TextTitle>Hora</TextTitle>
-          <InputTime />
+          <LabelTime>
+            <TextTitle>Hora</TextTitle>
+            <InputTime
+              value={time}
+              inputMode="numeric"
+              onChangeText={(value) => setTime(timeMask(value))}
+            />
+          </LabelTime>
         </TimeContainer>
 
-        <TextTitle>Está dentro da Dieta?</TextTitle>
-        <DietTypeContainer>
-          <DietType
-            insideDiet={insideDiet}
-            onPress={() => setInsideDiet(!insideDiet)}
-          >
-            <TextTitle>Sim</TextTitle>
-          </DietType>
+        <Label>
+          <TextTitle>Está dentro da Dieta?</TextTitle>
+          <DietTypeContainer>
+            <DietType
+              type="inside"
+              selected={dietTypeSelected}
+              onPress={() => setDietTypeSelected("inside")}
+            >
+              <Dot type="inside" />
+              <TextTitle>Sim</TextTitle>
+            </DietType>
 
-          <DietType
-            insideDiet={insideDiet}
-            onPress={() => setInsideDiet(!insideDiet)}
-          >
-            <TextTitle>Não</TextTitle>
-          </DietType>
-        </DietTypeContainer>
+            <DietType
+              type="outside"
+              selected={dietTypeSelected}
+              onPress={() => setDietTypeSelected("outside")}
+            >
+              <Dot type="outside" />
+              <TextTitle>Não</TextTitle>
+            </DietType>
+          </DietTypeContainer>
+        </Label>
+        <Button
+          text={edit ? "Salvar alterações" : "Cadastrar refeição"}
+          style={{ marginTop: "auto" }}
+        />
       </MealContent>
     </Container>
   );
